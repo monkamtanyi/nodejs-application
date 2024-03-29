@@ -57,16 +57,32 @@ programming and scripting languages that we have done in landmark
 -groovy
 
 How do we set up JSL:
-- create a Shared library  jSL has a variable vars dir 
+-Create shared libraries     jSL has a variable vars dir 
 - configure Library
 - Use Library in pipeline script
 
+Creating Shared Libraries:
 IN the var dir, we have a script called the common groovy, this has steps common to all the stages which can be used for
 automation.
+//common.groovy   this is the name of the shared library
+// under we are calling each fn (eg sh "mvn clean package") based on the stage name. u can run many commands 
+at each stage (eg lile sh " echo running code quality report analysis")
+def call(String stageName){
+  
+  if ("${stageName}" == "Build") {
+       sh "mvn clean package"
+     }
+  else if ("${stageName}" == "SonarQube Report")   {
+        sh " echo running code quality report analysis"
+       sh "mvn clean sonar:sonar"
+     }
+  else if ("${stageName}" == "Upload Into Nexus")
+     {
+       sh "mvn clean deploy"
+     }
+}
 
-
-
-
-
+Above is creating a shared libraries, next configure library:
+copu the repo were the jenkins library is found
 
 
