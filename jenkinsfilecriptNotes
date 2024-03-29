@@ -1,38 +1,72 @@
+//Code - Build - Test - CodeQualityReport - UploadArtifacts - Deployment - Email Notification
+//This pipeline script written in groovy. Now if we have many projects, it means we go thro each stage. But we can write 
+common script that can be refereced to build other scripts.
+
+
 node
 {
  
-  stage("CheckOutCodeGit")
-  {
-   git branch: 'master', credentialsId: '65fb834f-a83b-4fe7-8e11-686245c47a65', url: 'https://github.com/bhaskar0504/node-js-application.git'
- }
+  stage("CheckOutCodeGit") {
+   sh "start of project"
+  sh "This is a java project for boa"
+  git 'https://github.com/LandmarkTechnology/wep-app'   // used to pull the code from github = Code pull
+}
  
- stage("Build")
- {
- nodejs(nodeJSInstallationName: 'nodejs15.2.1') {
-        sh 'npm install'
+ stage("Test+Build") {
+   // Building with maven
+  // sh "mvn validate"
+  // sh "mvn compile"
+  // sh "mvn test"     note mvn package will execute the 3 commands above which is commented.
+     sh "mvn package"  
+
     }
- }  
  
-  stage('ExecuteSonarQubeReport') {
-     nodejs(nodeJSInstallationName: 'nodejs15.2.1') {
-        sh 'npm run sonar'
+ 
+  stage('CodeQualityReport') {
+   sh " echo running code quality report analysis"
+   sh "sonar:sonar    // sonar plugin and sonar goal to execute sonar report"   
+   
     }
       
         } 
 		
-    stage('UploadintoNexus') {
-       nodejs(nodeJSInstallationName: 'nodejs15.2.1') {
-          sh 'npm publish'
-      }
-      
-          }	
+    stage('UploadArtifacts') {
+      sh " echo uploading artifacts in nexus"
+       sh "mvn deploy"
+      }	
  
- stage('RunNodeJsApp')
- {
- //sh "./scripts/run.sh"
- nodejs(nodeJSInstallationName: 'nodejs15.2.1') {
-        sh 'npm start &'
+ stage('Development') {
+  sh "echo app now ready for deployment"
+// in deploying the application we just copy the application code from the build server (web-app dir) to
+//the deployment server (web-server dir)
+    sh "scp app.war ec2-user@172.28.19.2:/opt/tomcat9/webapps/"
     }
-}    
+stage ('Notification'){
+sh "mail"     // mail is a command in linux
+sh "echo slackchannel"    //to also notify members on slack channels
     
+  }
 }
+Doing the above jenkins pipeline Script is a tedious process, especially as we have many projects. to solve this we use 
+Jenkins Shared Libraries JSL:
+Jekins Shared Libraries is a concept of having a common pipeline code in the version control system that can be used 
+by any number of pipelines just by referencing it. Infact, multiple teams can use the same library for their pipelines.
+It is just like calling a function.
+programming and scripting languages that we have done in landmark
+- bash-shell scripting
+-groovy
+
+How do we set up JSL:
+- create a Shared library  jSL has a variable vars dir 
+- configure Library
+- Use Library in pipeline script
+
+IN the var dir, we have a script called the common groovy, this has steps common to all the stages which can be used for
+automation.
+
+
+
+
+
+
+
