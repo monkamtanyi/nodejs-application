@@ -65,7 +65,7 @@ Creating Shared Libraries:
 IN the var dir, we have a script called the common groovy, this has steps common to all the stages which can be used for
 automation.
 //common.groovy   this is the name of the shared library
-// under we are calling each fn (eg sh "mvn clean package") based on the stage name. u can run many commands 
+// under we are calling each fn (eg sh "mvn clean package") based on the string stage name. u can run many commands 
 at each stage (eg lile sh " echo running code quality report analysis")
 def call(String stageName){
   
@@ -83,7 +83,7 @@ def call(String stageName){
 }
 
 Above is creating a shared libraries, next configure library:
-copu the repo were the jenkins library is found
+copy the repo were the jenkins library is found
 https://github.com/monkamtanyi/JenkinsSharedLibraries
 goto jkbrowser,db>managejk>configure system>global pipeline libraries>libraryname=   (u can have multiple libraries) >
 default version=master-allow defaut version overriden, include@library changes in job recent changes.>
@@ -103,14 +103,18 @@ stages{
  stage('gitPull') {   //we want to pull d code from our PubGithubRepo
     steps {
         sh "echo start of ebay-bts project"
-         git ' https://github.com/monkamtanyi/JenkinsSharedLibraries' 
-        //git pull is not part of my shared library, if u check the library file there is no stage as git pull)
+         git 'https://github.com/monkamtanyi/maven-web-application_public' 
+        //git pull is not part of my shared library, if u check the library file there is no stage as git pull, so pull the repo from git)
        //CTrl+C copy pipelinscript Ctrl+V =paste in jkPipeline>
      }
   }
  }
+      stage('Build') {  
+    steps{
+        common("Build")
+  }
+ }
 }
-
 
 
 
