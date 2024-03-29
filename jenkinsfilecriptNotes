@@ -84,5 +84,40 @@ def call(String stageName){
 
 Above is creating a shared libraries, next configure library:
 copu the repo were the jenkins library is found
+https://github.com/monkamtanyi/JenkinsSharedLibraries
+goto jkbrowser,db>managejk>configure system>global pipeline libraries>libraryname=   (u can have multiple libraries) >
+default version=master-allow defaut version overriden, include@library changes in job recent changes.>
+retrieval methoe=modernscm>git>enter jenkins library repo - https://github.com/monkamtanyi/JenkinsSharedLibraries>enter
+cred?>save>jenkins shared library is configured.
+Next:select a project or lets create one called ebay-bts>pipeline project>ok>conf>ok>pipeline>
+
+Jenkinsfile start jenkinsfile for shared libraries like this  (SS =software solution)
+//@Library('LibraryName') _
+@Library('monkamtanyiSS-Sharedlibs') _
+pipeline{                   //we are going to create a declarative pipeline
+agent any
+tools{
+     maven "maven3.9.6"
+  }
+stages{
+ stage('gitPull') {   //we want to pull d code from our PubGithubRepo
+    steps {
+        sh "echo start of ebay-bts project"
+         git ' https://github.com/monkamtanyi/JenkinsSharedLibraries' 
+        //git pull is not part of my shared library, if u check the library file there is no stage as git pull)
+       //CTrl+C copy pipelinscript Ctrl+V =paste in jkPipeline>
+     }
+  }
+ }
+}
+
+
+
+
+
+
+
+
+
 
 
