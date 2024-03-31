@@ -24,7 +24,7 @@ node
  
   stage('CodeQualityReport') {
    sh " echo running code quality report analysis"
-   sh "sonar:sonar    // sonar plugin and sonar goal to execute sonar report"   
+  // sh "sonar:sonar    sonar plugin and sonar goal to execute sonar report"   
    
     }
       
@@ -85,7 +85,7 @@ def call(String stageName){
 Above is creating a shared libraries, next configure library:
 copy the repo were the jenkins library is found
 https://github.com/monkamtanyi/JenkinsSharedLibraries
-goto jkbrowser,db>managejk>configure system>global pipeline libraries>libraryname=   (u can have multiple libraries) >
+goto jkbrowser,db>managejk>configure system>global pipeline libraries>libraryname= monkamtanyiSS-Sharedlibs  (u can have multiple libraries) >
 default version=master-allow defaut version overriden, include@library changes in job recent changes.>
 retrieval methoe=modernscm>git>enter jenkins library repo - https://github.com/monkamtanyi/JenkinsSharedLibraries>enter
 cred?>save>jenkins shared library is configured.
@@ -103,25 +103,113 @@ stages{
  stage('gitPull') {   //we want to pull d code from our PubGithubRepo
     steps {
         sh "echo start of ebay-bts project"
-         git 'https://github.com/monkamtanyi/maven-web-application_public' 
+          git 'https://github.com/monkamtanyi/maven-web-application_public'
         //git pull is not part of my shared library, if u check the library file there is no stage as git pull, so pull the repo from git)
        //CTrl+C copy pipelinscript Ctrl+V =paste in jkPipeline>
      }
   }
- }
       stage('Build') {  
     steps{
         common("Build")
+   }
   }
+  stage('Execute SonarQube Report') {
+    steps{   
+         sh " echo running code quality report analysis"
+      // common("SonarQube Report")
+    }
+ }
+  stage('Upload Artifacts Into Nexus') {
+     steps {
+         sh " echo uploading artifacts"
+         //common("Upload Into Nexus")
+       }
+    }
  }
 }
+if you go to the jenkinsSharedlibrary folder you will see 
+common.groovy
+build.groovy
+stage.groovy.
+if u call d fn from common then d step will be common, if i cll the fn from build, the step will be build, follows
+same for stage.
 
+lets call the fn from build
+@Library('monkamtanyiSS-Sharedlibs') _
+pipeline{                   //we are going to create a declarative pipeline
+agent any
+tools{
+     maven "maven3.9.6"
+  }
+stages{
+ stage('gitPull') {   //we want to pull d code from our PubGithubRepo
+    steps {
+        sh "echo start of ebay-bts project"
+          git 'https://github.com/monkamtanyi/maven-web-application_public'
+        //git pull is not part of my shared library, if u check the library file there is no stage as git pull, so pull the repo from git)
+       //CTrl+C copy pipelinscript Ctrl+V =paste in jkPipeline>
+     }
+  }
+      stage('Clean') {  
+    steps{
+        build("Clean")
+   }
+  }
+  stage('Compile') {
+    steps{   
+         sh " echo running compile"
+      // build("Compile")
+    }
+ }
+  stage('Test') {
+     steps {
+         sh " echo uploading artifacts"
+         //build("Test")
+       }
+    }
+     stage('Package') {
+     steps {
+         sh " echo uploading artifacts"
+         //build("Package")
+       }
+   }
+  }
+}
 
+we can also call d fn from stages:
 
-
-
-
-
-
-
+@Library('monkamtanyiSS-Sharedlibs') _
+pipeline{                   //we are going to create a declarative pipeline
+agent any
+tools{
+     maven "maven3.9.6"
+  }
+stages{
+ stage('gitPull') {   //we want to pull d code from our PubGithubRepo
+    steps {
+        sh "echo start of ebay-bts project"
+          git 'https://github.com/monkamtanyi/maven-web-application_public'
+        //git pull is not part of my shared library, if u check the library file there is no stage as git pull, so pull the repo from git)
+       //CTrl+C copy pipelinscript Ctrl+V =paste in jkPipeline>
+     }
+  }
+      stage('Build') {  
+    steps{
+        stages("Build")
+   }
+  }
+  stage('SonarQube Report') {
+    steps{   
+         sh " echo running code quality report analysis"
+      // stages("SonarQube Report")
+    }
+ }
+  stage('Upload Into Nexus') {
+     steps {
+         sh " echo uploading artifacts"
+         //stages("Upload Into Nexus")
+       }
+    }
+ }
+}
 
