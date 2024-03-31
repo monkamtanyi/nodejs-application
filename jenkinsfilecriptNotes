@@ -235,14 +235,14 @@ sudo yum install nodejs npm -y  = //[jenskins@cd ~]$sudo yum install nodejs npm 
 db>newItem>name=ebaynodejs-app>pipeline>save>pipeline script>
 
 node {
-  stage('CodeCheckout'){
-   sh "echo running ebay nodeJS projet"   lets get a Purepo and use git to clone it from github, u don't need credentials as
-       git 'https://github.com/LandmarkTechnology/nodejs-application'      as it is a PrivateRepo and it runs in d master branch
+stage('CodeCheckout'){
+ sh "echo running ebay nodeJS projet"   lets get a Purepo and use git to clone it from github, u don't need credentials as
+git 'https://github.com/LandmarkTechnology/nodejs-application'     as it is a PrivateRepo and it runs in d master branch
      // git 'https://github.com/monkamtnayi/nodejs-application'          forked repo
   }
-    Stage (UnitTest') {    //u may want to run unit test cases b4 build
+    Stage (UnitTest') {                              //u may want to run unit test cases b4 build
         sh "echo unit test cases successful" 
-        //sh "npm test"   canot run bcos no test cases is specified - there is no test cases
+        //sh "npm test"                              canot run bcos no test cases is specified - there is no test cases
 }
 
    Stage ('Build') { 
@@ -250,26 +250,41 @@ node {
    nodejs(nodeJSInstallationJame: 'nodejs17')
      sh "npm install"                             // now copy the script to the pipeline script job>buildNow
   }                                           //to get latest version of npm>goto db>manage jk>gobal tool conf>nodejs>
-}                                            {if y don't see nodejs goto plugin and install nodejs)> nodejs installation>
+                                            {if y don't see nodejs goto plugin and install nodejs)> nodejs installation>
 stage('Quality Report') {                     u will see the current version>(goto jenkins server and version check
    sh "echo CodeQualityReport"              $npm -verdion) goback to jk browser >add NodsJS>nodejs17 -the version u see>
 nodejs(nodeJSInstallationJame: 'nodejs17')  save, u can now use this latest nodejs version in ur jk jobs - call the latest
  sh 'npm run sonar'                          verion as shown left side (nodejs(nodeJSInstallationJame: 'nodejs17')).
   }                                            Next step sonarqubereport>nodejs-application repo>sonar-project.js>edit>goto 
-}                                            sonar server browser and copy url or use ipaddress and insert(just belowsonqube-
-stage('UploadArtifacts')                      scanner} (sonar-project.js =pom.xml). next create a token (u can as well
+                                           sonar server browser and copy url or use ipaddress and insert(just belowsonqube-
+stage('UploadArtifacts') {                     scanner} (sonar-project.js =pom.xml). next create a token (u can as well
 sh "echo npm packages Uploaded"               use sonar.login= admin and passwd admin- better to create a token>goto sonar
  nodejs(nodeJSInstallationJame: 'nodejs17')    browser>administration>security>uses>under or in admin>token>name-nodejs>
-  sh 'npm publish'                              generate>copy token>goto sonar-project.js and replace d token>commit changes.
+//  sh 'npm publish'                              generate>copy token>goto sonar-project.js and replace d token>commit changes.
 //jenkins nexus integration *                                                copy to pipbeline script>apply>save>buildNow>got sonaqube server in browser
-//passwd = Admin123, username=admin                                                and check for the report' what is ur job- I have been maintaining, updation
-                                                  modify and customize jenkinspipeline jobes and jenkins shared libraries.
-                                                  when u create a nodejs application it generates npm packages.
-                                                  * goto nexus server in browser>create repo>npm(hosted)>name=ebay-npm-repo>
-                                                deployment policy=allow redeploy>create>copy repoUrl>goto project>
-                                                package.json =pom.xml>insertUrl in registry under nodejsexample>commit>
-                                                 u can change passwd>account>iD=admin>firstName=Administrator>LastName=User>
-                                                  Email>changePasswd>admin>admin123>now chaneTo>Admin@123
+//passwd = Admin123, username=admin         and check for the report' what is ur job- I have been maintaining, updation
+ //echo -n 'admin:admin123' | openssl base64
+  }                                                 modify and customize jenkinspipeline jobes and jenkins shared libraries.
+                                                 when u create a nodejs application it generates npm packages.
+  stage('deployment')  {                                              * goto nexus server in browser>create repo>npm(hosted)>name=ebay-npm-repo>
+    sh "echo deploying application"                                                deployment policy=allow redeploy>create>copy repoUrl>goto project>    nodejs(nodeJSInstallationJame: 'nodejs17')                                          package.json =pom.xml>insertUrl in registry under nodejsexample>commit>
+   nodejs(nodeJSInstallationJame: 'nodejs17')                                            u can change passwd>account>iD=admin>firstName=Administrator>LastName=User>
+    sh 'npm start'                                              Email>changePasswd>admin>admin123>now chaneTo>Admin@123
                                                 We can create a token for passwd and username>use a command in base64
-                                               software. goto nodejs-application repo>views>Readme.md>
+  }                                               software. goto nodejs-application repo>views>Readme.md>
+ }                                        run this command to encript the username and passed:
+                                         //echo -n 'admin:passwd' | openssl base64  as in leftside. run d command as
+                                        [jenkins@cd ~]$echo -n 'admin:admin123' | openssl base64 . copy d token> goto 
+                                         .npmrc file (inRepo)>enter token line3 after _auth=enter token here>it looks 
+                                          like this _auth=echo -n 'admin:admin123' | openss1 base64. next copy this stage
+                                        to jk project>pipeline script>save>buildNow. Prof commented line did't wk. I'll
+                                         try to run it (sh 'npm publish').
+                                         Nest deploy>copy as shown to project script>buildnow. we are deploying to 
+deployment server not tomcat. prof will revisit this project in docker. open console output, goto botton u will see 
+"Jode JS app is running at 1) http://localhost:9981/landmarktechnologies" u cna acess d app using this url
+get jenkins url: https//18.212.54.48:5555/job/ebay-nodejs-app/14/console.
+Replace localhost with jenkins Ipaddress in 1) and access it on a browsr.
+this application has a port no. and some REST API =application promming interphase.
+this is one of them =http://localhost:9981/landmarktechnologies
+goto nodejs-application to see how many api are there>app.js>
 
