@@ -279,12 +279,59 @@ sh "echo npm packages Uploaded"               use sonar.login= admin and passwd 
                                           like this _auth=echo -n 'admin:admin123' | openss1 base64. next copy this stage
                                         to jk project>pipeline script>save>buildNow. Prof commented line did't wk. I'll
                                          try to run it (sh 'npm publish').
-                                         Nest deploy>copy as shown to project script>buildnow. we are deploying to 
+                                         Next deploy>copy as shown to project script>buildnow. we are deploying to 
 deployment server not tomcat. prof will revisit this project in docker. open console output, goto botton u will see 
 "Jode JS app is running at 1) http://localhost:9981/landmarktechnologies" u cna acess d app using this url
 get jenkins url: https//18.212.54.48:5555/job/ebay-nodejs-app/14/console.
 Replace localhost with jenkins Ipaddress in 1) and access it on a browsr.
-this application has a port no. and some REST API =application promming interphase.
-this is one of them =http://localhost:9981/landmarktechnologies
-goto nodejs-application to see how many api are there>app.js>
+this application has a port no. and some RESTFUL API =application promming interphase.
+this is one of them =http://localhost:9981/landmarktechnologies, u can use rest api to access info.
+goto nodejs-application to see how many api are there>app.js>u see a get request- app.get ("/html... /jsonData... etc).
+so u can access the rest application called jsonData like this : https//18.212.54.48:9981/jsonData
+also html rest api :https//18.212.54.48:9981/html
+also redirect rest api :https//18.212.54.48:9981/redirect ; will redirect traffic to mylandmarktech.com - see it under
+app.get(redirct ...)
+also https//18.212.54.48:9981/queryparam - prof ran it, showed undefined
+try the redirect - took us to landmark technology website
+restful jsonData - it takes us to some landmark info - email, contact, name etc.
+if we were deploying this appli as a docker container d port no is 9981' Dvpers have exposed this appl on thisport.
+so when we want to access this appl it has a context path and a port no. and all this these are what we call REST APIs'
+this is how we are able to deploy a nodejs appl.
+as devops engr. ur fn is to ensure that this appli is 
+- high availability - these rest apis shld be accessible.
+so we are going to create New-Relic to create monitoring dasboard (see video). eg google new-relic monitoring dashboards.
+we will use these monitoring dbs, bcos in real time we will not be clicking each rest api to see if its avaiable-
+one appl can have like 50 rest apis, meaning u can access more than 50 resorces - to make sure they are availble use
+monitoring tools to momitor ur appl to make sure they are highly available.
+Check these videos: new-relic 55min, resume preparation 55min. we are 50% course ach.
+
+END OF JENKINS
+jenkins master slave arcitecture: in real time we want to maximise the uptime of our savers- ie the length of time it has ran
+contiuuouly without failing. mabe it has ran for 2yrs without failing that's uptime. to avoid jk servers from failing, we 
+can configure jobs to run on slave servers. if u are running a jk job on a slave, whatever runs on that slave, the job
+is backed up there automatically. if the master goes down and u were creating artifacts on those slaves, u can go back
+and see the jobs that you had created on those specific slave servers. Note that we are creating a jk master slave 
+architecture in d sense that if the jk master fails we won't have any provlem, secondly he helps us achieve speed in a
+situation were multiple jobs is run- we cna run them concurently, ie we can have multiple executors and jk executors are
+those parameters in jks which enable jk to run jobs in jk slave servers. in a complex pipelin project were u may have to use 
+multiple agents - say u have a pipeline were u decide to configure say sonaqube as an agent, 
+How can u backup >plugin manager>availble>search backup>we have options like:
+periodic backup: backup or restore ur jk configuration files at stipulated times
+backup and interrupt job plugin: prepare jk for restart
+google cloud backup: allows local and cloud-storage bkups and automatic restores
+Thinbackup: bkups d most important global aand job sepecific configuration files. open thinbackup:
+gives 3 options: bkup now, restore, bkup settings (create bkup in jk home dir, bkup schedule for full bkups,max. no. of bkup sets
+prof had 5>force jk to quite mode after specific minutes prof =12>, bkup build results prof ticked bkup build result,
+bkup user content folder, bkup next build number file, bkup plugin arcchives click save and click bkup now- everything 
+about ur jk jobs is going to be backup.  eg [jenkens@cd ~]$ls jenkinsbackup -prof result FULL -2021-12-16_16_40
+etc)
+[jenkens@cd ~]$ls jenkinsbackup/FULL -2021-12-16_16_40 : u get everythings about ur jk servers :jobs, plugins,users etc has 
+been backedup. we can decide to have one max. backup, and the rest backup as zip file(tick move to zip) in landmark we 
+use the thinbackup to bkup our jobs, plugins and other jk files - if a new recruit by deletes files just go to restore.
+
+Dvpers write restfulapis as part of the appl.js, helps u to get info on specific content.
+
+
+
+
 
