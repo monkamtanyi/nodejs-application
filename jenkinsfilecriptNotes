@@ -110,8 +110,8 @@ stages{
   }
       stage('Build') {  
     steps{
-        common("Build")
-   }
+        common("Build")    // u can decide to change the name common.groovy to cdc.groovy, but remember to use cdc in 
+   }                             d place of common. this applies to stages and Build.
   }
   stage('Execute SonarQube Report') {
     steps{   
@@ -213,5 +213,63 @@ stages{
  }
 }
 
+we have seen java appliications which we call java projects now lets go to 
+nodejs applications which we call nodeJS Projects:
 
+nodejs appication -------> nodeJS Projects
+
+nodejs-APP                VS                   Java-APP               in landmark we use maven to build in java-app and in
+npm                       =                     maven or gradle  --->  Build   nodejs-app we use npm(node package manager)
+package.json                                    pom.xml                 Build Script BS when doing a build u need a BS
+npm install                                     mvn package             creating packages
+npm test                                        mvn test                 run unit test cases
+npm run sonar                                   mvn sonar:sonar           SonarQube CodeQualityReport
+npm publish                                     mvn deploy                uploading artifacts
+
+The BS is pom.xml using maven and package.json using the node package manager.
+Nest we do a pipeling project using nodejs application.
+
+src + BS + test cases
+sudo yum install nodejs npm -y  = //[jenskins@cd ~]$sudo yum install nodejs npm -y
+
+db>newItem>name=ebaynodejs-app>pipeline>save>pipeline script>
+
+node {
+  stage('CodeCheckout'){
+   sh "echo running ebay nodeJS projet"   lets get a Purepo and use git to clone it from github, u don't need credentials as
+       git 'https://github.com/LandmarkTechnology/nodejs-application'      as it is a PrivateRepo and it runs in d master branch
+     // git 'https://github.com/monkamtnayi/nodejs-application'          forked repo
+  }
+    Stage (UnitTest') {    //u may want to run unit test cases b4 build
+        sh "echo unit test cases successful" 
+        //sh "npm test"   canot run bcos no test cases is specified - there is no test cases
+}
+
+   Stage ('Build') { 
+    sh "echo creating build artifacts"   // we are doing scripted pipeline Build. install nodejs in jk b4 do bill
+   nodejs(nodeJSInstallationJame: 'nodejs17')
+     sh "npm install"                             // now copy the script to the pipeline script job>buildNow
+  }                                           //to get latest version of npm>goto db>manage jk>gobal tool conf>nodejs>
+}                                            {if y don't see nodejs goto plugin and install nodejs)> nodejs installation>
+stage('Quality Report') {                     u will see the current version>(goto jenkins server and version check
+   sh "echo CodeQualityReport"              $npm -verdion) goback to jk browser >add NodsJS>nodejs17 -the version u see>
+nodejs(nodeJSInstallationJame: 'nodejs17')  save, u can now use this latest nodejs version in ur jk jobs - call the latest
+ sh 'npm run sonar'                          verion as shown left side (nodejs(nodeJSInstallationJame: 'nodejs17')).
+  }                                            Next step sonarqubereport>nodejs-application repo>sonar-project.js>edit>goto 
+}                                            sonar server browser and copy url or use ipaddress and insert(just belowsonqube-
+stage('UploadArtifacts')                      scanner} (sonar-project.js =pom.xml). next create a token (u can as well
+sh "echo npm packages Uploaded"               use sonar.login= admin and passwd admin- better to create a token>goto sonar
+ nodejs(nodeJSInstallationJame: 'nodejs17')    browser>administration>security>uses>under or in admin>token>name-nodejs>
+  sh 'npm publish'                              generate>copy token>goto sonar-project.js and replace d token>commit changes.
+//jenkins nexus integration *                                                copy to pipbeline script>apply>save>buildNow>got sonaqube server in browser
+//passwd = Admin123, username=admin                                                and check for the report' what is ur job- I have been maintaining, updation
+                                                  modify and customize jenkinspipeline jobes and jenkins shared libraries.
+                                                  when u create a nodejs application it generates npm packages.
+                                                  * goto nexus server in browser>create repo>npm(hosted)>name=ebay-npm-repo>
+                                                deployment policy=allow redeploy>create>copy repoUrl>goto project>
+                                                package.json =pom.xml>insertUrl in registry under nodejsexample>commit>
+                                                 u can change passwd>account>iD=admin>firstName=Administrator>LastName=User>
+                                                  Email>changePasswd>admin>admin123>now chaneTo>Admin@123
+                                                We can create a token for passwd and username>use a command in base64
+                                               software. goto nodejs-application repo>views>Readme.md>
 
