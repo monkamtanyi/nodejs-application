@@ -331,6 +331,44 @@ use the thinbackup to bkup our jobs, plugins and other jk files - if a new recru
 
 Dvpers write restfulapis as part of the appl.js, helps u to get info on specific content.
 
+APPLICATION PERFORMANCpE MONITORING APM WITH NEW RELIC
+U query a relic to get info. 
+Interview answer: I have been able to configure, monitore db relic with over 50 restful APIs ex. API 
+http:/3.85.28.18:7777/myapps/services/employee/getEmployeeDetails
+New Relic nr is one of d tools that is being used by most companies to ensure that their appl is performing as expected.
+
+NR benefits
+high availability
+avoid reactive panics
+performing as expected
+achieve zero downtime
+
+NR =SaaS good for my cv
+nr is a continuous monitoring tool.
+IT is a software as a service appl. I don't need a server to run nr, it is a fully managed service. remember we need a 
+server to install jk or tomcat or maven etc.
+create an account on nr.
+monkamtanyi@yahoo.co.uk
+goto infrastructure: u can use new relc to monitor infrastructure hosted on aws, kubernetes, windows, linux server etc.
+it can also monitor logs put it is not open source - need to pay. will not use this. will use other tools.
+https://one.newrelic.com/synthetics/monitor-create?account=4407585&state=704d97cf-2c9d-0eb8-bca3-d682a8c823a8
+goto ping- use to show that this appl is up and runing at all time. it is going to check d rest api eg get employee info.
+>Name=EmployeeDetails>enter url (rest api) it is going go ensure that employee details stored on this url 
+is highly available.>can add a vailidator can be one employee-copy name from json file>  advance options: include
+verify ssl: this ensure only people with secure connection can access this restful api prof choosed Bypass Head request,
+third option redirect failure.>select monitoring locations - where are customers located
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
