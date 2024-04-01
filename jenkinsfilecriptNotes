@@ -280,7 +280,7 @@ sh "echo npm packages Uploaded"               use sonar.login= admin and passwd 
                                         to jk project>pipeline script>save>buildNow. Prof commented line did't wk. I'll
                                          try to run it (sh 'npm publish').
                                          Next deploy>copy as shown to project script>buildnow. we are deploying to 
-deployment server not tomcat. prof will revisit this project in docker. open console output, goto botton u will see 
+deployment server not tomcat. prof will revisit this project in docker. open console output, goto bottom u will see 
 "Jode JS app is running at 1) http://localhost:9981/landmarktechnologies" u cna acess d app using this url
 get jenkins url: https//18.212.54.48:5555/job/ebay-nodejs-app/14/console.
 Replace localhost with jenkins Ipaddress in 1) and access it on a browsr.
