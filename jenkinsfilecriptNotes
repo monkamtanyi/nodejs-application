@@ -334,7 +334,7 @@ Dvpers write restfulapis as part of the appl.js, helps u to get info on specific
 APPLICATION PERFORMANCpE MONITORING APM WITH NEW RELIC
 U query a relic to get info. 
 Interview answer: I have been able to configure, monitore db relic with over 50 restful APIs ex. API 
-http:/3.85.28.18:7777/myapps/services/employee/getEmployeeDetails
+http:/54.82.188.178:7777/myapps/services/employee/getEmployeeDetails
 New Relic nr is one of d tools that is being used by most companies to ensure that their appl is performing as expected.
 
 NR benefits
@@ -356,7 +356,45 @@ goto ping- use to show that this appl is up and runing at all time. it is going 
 >Name=EmployeeDetails>enter url (rest api) it is going go ensure that employee details stored on this url 
 is highly available.>can add a vailidator can be one employee-copy name from json file>  advance options: include
 verify ssl: this ensure only people with secure connection can access this restful api prof choosed Bypass Head request,
-third option redirect failure.>select monitoring locations - where are customers located
+third option redirect failure.>period -how often u want this info - prof cloose every 1min.>select monitoring locations - where are customers located. select location - aim is to find 
+out how long it takes for clients in this location to access this appl. so that corrective measures can be taken
+to make sure latency is reduced to minimum>create monitor>u will see a db showing latency time for each region.
+If it's taking more time for clients in cape town africa to access this appl, how can we correct?
+when end users from wherever want to access this appl. we are going to route their traffic with a elastic load 
+balancerELB (coulbe a web server - apache, tomcat whatever server). this load server is going to distribute this 
+traffic based on where u are going to connect from( if u are connection from usa, ur traffic may be routed to say
+our ec2 (tomcat servers - in this class we shall see how to install this serverless) . north verginia, these tomcat
+servers are running in ec2 instances (linux servers). if a customer is accessing d restful api from africa, d 
+router ELB will transfer your traffic to tocat server running in captown region.
+this is in a bid to achieve low letancy. 
+luckily aws these servers in serveral regions of the globe.
+
+if the response or text validation (the expected string) is not found (the validation name u put - the restful api 
+will check for it and if it does not find it, it will return this response- so you need to opwn the rest api to 
+check if that name is there)
+or if the server is not working - u get a message server timeout meaning the restful api cannot be accessed.- 
+maybe u need to retart d tomcat server ([ec2-user@ip-172-31-42-213]$sudo -i, then [root@ip-172-31-42-213]#startTomcat -
+generally this ping db helps visualize customer issues to enable u fix them.
+
+Anser: I have been able to create monitoring db using nr, for restful APIs.
+So now we have created one db monitor for synthetics EmployeesDetails. so we can can create several db monitors eg get 
+customerDetails etc,
+
+we also have the api test, this is used for secure restful APIs, apis that u will need to validate wiht username
+and passwd  that's what we call secure restful apis.
+so if some one wants to enrol into landmark then i need to share we him this restful api to enable him click and enrol.
+and if u have to sign in with passwd and username that becomes a secure restful api, se shall do what is called an 
+api test.
+Scripted browser- semi script will be written to achieve this task.
+Simple browser: u can create a monitor for d entire appl.
+
+
+
+
+
+
+
+
 
 
 
