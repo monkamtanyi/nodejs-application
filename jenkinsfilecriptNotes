@@ -389,11 +389,64 @@ Scripted browser- semi script will be written to achieve this task.
 Simple browser: u can create a monitor for d entire appl.
 
 
+ Load balancing with Nginx - Tomcat - 3-Tier app deployment 
 
+loading a virtual machine takes minutes but creating a container takes seconds. using container in a company is a 
+big deal.
 
+[ec2-user@ip.23.45.33.23 ~]$sudo hostname nginx
+[ec2-user@ip.23.45.33.23 ~]$sudo su -                bcome root user
+[root@nginx ~]#
+[root@nginx ~]# yum install nginx -y                 install nginx
+ [root@nginx ~]#systemctl enable nginx
+ [root@nginx ~]#systemctl start nginx
+ [root@nginx ~]#systemctl status nginx
+http://54.224.111.243:80  access on browser
+[root@nginx ~]# cat /etc/nginx/nginx.conf           config file.
 
+server {
+        listen       80;
+        listen       [::]:80;
+        server_name  _;
+        root         /usr/share/nginx/html;
 
+        # Load configuration files for the default server block.
+        include /etc/nginx/default.d/*.conf;
 
+ server {
+#        listen       443 ssl http2;
+#        listen       [::]:443 ssl http2;
+#        server_name  _;
+#        root         /usr/share/nginx/html;
+
+create a backup for this nginx-webserver
+sudo mv  /etc/nginx/nginx.conf /etc/nginx.conf.bkup
+vi /etc/nginx/nginx.conf   we want to recreat this 
+
+Load Balancer: benefit
+load balancing
+Performance
+security
+patching and upgrading
+Health Check : it will not send traffic to a server that is not healthy (eg there could be a spike of traffic, meaning that 
+server can not receive traffic, or maybe java process in tomcat server may not be working well making the server
+unhealthy)
+
+LB recieve traffic from users take it to our app and then to database
+users ---> LB ---> App --->DB : u see LB acts as a layer of security, whereby if someone wants to hack into 
+our system, he can be stopped at this stage.
+
+when u type www.app.com or google.com or landmark.om what happens:
+in the back end u querry  global DNS (domain name service)
+there is a command in the backend called nslookup (name service lookup), it searches d server (ie nslookup points the 
+address (nginx webserver ip) of www.landmarkmu.org).  LandmarkTechnologies@simonLegah MINGWA64 ~/Music/NGINX/maven-web-
+application (master)    
+$nslookup www.landmarkmu.org
+so if u run nslookup www.landmarkmu.org it will tell u that this 
+puIp is pointing to the nginx webserver and traffic will be routed to that server.
+
+try $nslookup google.com : it will show u the webserver that google.com is running on or associated with.
+$nslookup facebook.com: gives u the webserver fb is running on.
 
 
 
