@@ -281,10 +281,10 @@ sh "echo npm packages Uploaded"               use sonar.login= admin and passwd 
                                          try to run it (sh 'npm publish').
                                          Next deploy>copy as shown to project script>buildnow. we are deploying to 
 deployment server not tomcat. prof will revisit this project in docker. open console output, goto bottom u will see 
-"Jode JS app is running at 1) http://localhost:9981/landmarktechnologies" u cna acess d app using this url
+"Node JS app is running at 1) http://localhost:9981/landmarktechnologies" u cna acess d app using this url
 get jenkins url: https//18.212.54.48:5555/job/ebay-nodejs-app/14/console.
 Replace localhost with jenkins Ipaddress in 1) and access it on a browsr.
-this application has a port no. and some RESTFUL API =application promming interphase.
+this application has a port no. and some RESTFUL API =application programming interphase.
 this is one of them =http://localhost:9981/landmarktechnologies, u can use rest api to access info.
 goto nodejs-application to see how many api are there>app.js>u see a get request- app.get ("/html... /jsonData... etc).
 so u can access the rest application called jsonData like this : https//18.212.54.48:9981/jsonData
