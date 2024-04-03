@@ -350,11 +350,11 @@ server to install jk or tomcat or maven etc.
 create an account on nr.
 monkamtanyi@yahoo.co.uk
 goto infrastructure: u can use new relc to monitor infrastructure hosted on aws, kubernetes, windows, linux server etc.
-it can also monitor logs put it is not open source - need to pay. will not use this. will use other tools.
+it can also monitor logs but it is not open source - need to pay. will not use this. will use other tools.
 https://one.newrelic.com/synthetics/monitor-create?account=4407585&state=704d97cf-2c9d-0eb8-bca3-d682a8c823a8
-goto ping- use to show that this appl is up and runing at all time. it is going to check d rest api eg get employee info.
->Name=EmployeeDetails>enter url (rest api) it is going go ensure that employee details stored on this url 
-is highly available.>can add a vailidator can be one employee-copy name from json file>  advance options: include
+goto ping- use to show weatherthis appl is up and runing at all time. it is going to check d rest api eg get employee info.
+>Name=EmployeeDetails>enter url (rest api) it is going to ensure that employee details stored on this url 
+is highly available.>can add a validator can be one employee-copy name from json file>  advance options: include
 verify ssl: this ensure only people with secure connection can access this restful api prof choosed Bypass Head request,
 third option redirect failure.>period -how often u want this info - prof cloose every 1min.>select monitoring locations - where are customers located. select location - aim is to find 
 out how long it takes for clients in this location to access this appl. so that corrective measures can be taken
