@@ -438,9 +438,10 @@ our system, he can be stopped at this stage.
 
 when u type www.app.com or google.com or landmark.om what happens:
 in the back end u querry  global DNS (domain name service)
-there is a command in the backend called nslookup (name service lookup), it searches d server (ie nslookup points the 
-address (nginx webserver ip) of www.landmarkmu.org).  LandmarkTechnologies@simonLegah MINGWA64 ~/Music/NGINX/maven-web-
-application (master)    
+there is a command in the backend called nslookup (name service lookup), it searches d server (ie nslookup
+points the address (nginx webserver ip) of www.landmarkmu.org).  LandmarkTechnologies@simonLegah
+MINGWA64 ~/Music/NGINX/maven-web-application (master)  
+
 $nslookup www.landmarkmu.org
 so if u run nslookup www.landmarkmu.org it will tell u that this 
 puIp is pointing to the nginx webserver and traffic will be routed to that server.
