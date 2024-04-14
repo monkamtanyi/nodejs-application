@@ -396,6 +396,39 @@ Simple browser: u can create a monitor for d entire appl.
 loading a virtual machine takes minutes but creating a container takes seconds. using container in a company is a 
 big deal.
 
+1)Launching nginx server>launch instance>redheartgate tc2 micro free tier eligible>tagn=Name, nginx>sg 
+select existing sg>launch.
+2) Install 3 tomcat servers using redhat >p8080.
+3)launch maven server.
+4)[ec2-user@maven ~]$ mkdir jp
+[ec2-user@maven ~]$ cd jp
+[ec2-user@maven jp]$ ls
+[ec2-user@maven jp]$ git clone https://github.com/LandmakTechnology/maven-web-application
+5)[ec2-user@maven jp]$ ls
+maven-web-application
+6)[ec2-user@maven jp]$ ls
+maven-web-application
+[ec2-user@maven jp]$ cd maven-web-application/
+[ec2-user@maven maven-web-application]$ ls
+
+deploy-k8s.yml            Jenkinsfile11           Jenkinsfile_declarative042023    Jenkinsfile-ebay       Jenkinsfiles-declarative29  pom.xml
+docker-compose.yml        Jenkinsfile34           Jenkinsfile-declarative23        JenkinsfileJuly2021    Jenkinsfile_sep22           src
+Dockerfile                Jenkinsfile-build23     Jenkinsfile_declarativeDec2023   Jenkinsfile-July2023   Jenkinsfile-sep23-decl      tesla.xml
+Jenkinfile-dec-March2024  Jenkinsfile_Dec2023     JenkinsfiledeclarativeJuneBathc  Jenkinsfile_March2023  Jenkinsfile-Sep23-scripted
+Jenkinsfile               JenkinsfileDeclarative  Jenkinsfile_docker               Jenkinsfile_paypal28   Jenkinsfile_tesla
+7)[ec2-user@maven mwa]$ mvn package
+[ec2-user@maven maven-web-application]$ ls target/
+classes  generated-sources  maven-archiver  maven-status  tesla  tesla.war
+
+Now i want to deploy war files into tomcat servers(appservers) from maven
+scp -i mavenkey1.pem target/*war ec2-user@172.31.24.215:/opt/tomcat9/webapps/myapp.war
+PupIP tomcat 54.234.117.98
+PriIP Tomcat 172.31.24.215
+
+
+
+
+
 [ec2-user@ip.23.45.33.23 ~]$sudo hostname nginx
 [ec2-user@ip.23.45.33.23 ~]$sudo su -                bcome root user
 [root@nginx ~]#
