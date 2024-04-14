@@ -90,8 +90,7 @@ Safe Restart;Next Build Number;JACOCO;SSH Agent (use to run jk jobs on other ser
 Email Extension;SonarQube Scanner;Audit Trail Plugin(we can have many users in our jenkins servers-audit
 trail keeps a record of who did what);job import plugin(to migrate all jobs from old to new jenkins server
 eg redhat7 to redhat9);Schedule Build;Artifactory Plugin;Cloud Foundry;Blue Ocean; Publish Over SSH
-(use to establish ssh conection with servers & run jobs on them);ThinBackup;Convert To Pipeline;
-jenkins job migration.)
+(use to establish ssh conection with servers & run jobs on them);ThinBackup;Convert To Pipeline.)
 
 
 Above is creating a shared libraries, next configure library:
